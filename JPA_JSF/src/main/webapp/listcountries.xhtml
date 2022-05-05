@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">  
+
+<h:head></h:head> 
+<body>
+
+<h1 style="color:lightblue;">All Countries</h1><br></br>
+<p:link  href="addcountry.xhtml" style="color:red">Country Add Page</p:link><br></br><br></br>
+
+
+<h:form id="countryForm">
+	
+	<p:dataTable value="#{countryBean.countries}" var="country"  style="width:50%" editable="true">
+		  
+		<p:ajax event="rowEdit" listener="#{countryBean.updateCountry}"/>
+		
+		 <p:column headerText="Country Name">
+			
+			<p:cellEditor >
+				<f:facet name="output">
+					<h:outputText value="#{country.name}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{country.name}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column headerText="Update Country">
+                <p:rowEditor editTitle="Update Country Name" cancelTitle="Cancel Update" saveTitle="Save Update"/>
+         </p:column>  
+         <p:column headerText="Delete" >
+             <p:commandButton action="#{countryBean.deleteCountry(country.id)}" value="Delete"/>
+        </p:column>      
+       
+ 	</p:dataTable>
+</h:form><br></br>
+
+</body> 
+</html>
